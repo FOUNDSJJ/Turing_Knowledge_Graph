@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: white;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#fcc419", "font": {"color": "black"}, "id": "A.M. Turing Award", "label": "A.M. Turing Award", "shape": "dot", "title": "\n        \u003cb\u003eA.M. Turing Award\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: AWARD\u003cbr\u003e\n        \u89c4\u8303\u540d: A.M. Turing Award\u003cbr\u003e\n        KB ID: award_turing\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: ACM \u8bbe\u7acb\u7684\u91cd\u8981\u8ba1\u7b97\u673a\u5956\u9879\uff0c\u4ee5 Alan Turing \u547d\u540d\u3002\n        "}, {"color": "#4dabf7", "font": {"color": "black"}, "id": "Bletchley Park", "label": "Bletchley Park", "shape": "dot", "title": "\n        \u003cb\u003eBletchley Park\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: ORG\u003cbr\u003e\n        \u89c4\u8303\u540d: Bletchley Park\u003cbr\u003e\n        KB ID: wiki_bletchley_park\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u82f1\u56fd\u4e8c\u6218\u65f6\u671f\u7684\u91cd\u8981\u5bc6\u7801\u7834\u8bd1\u4e2d\u5fc3\uff0cAlan Turing \u5728\u6b64\u53c2\u4e0e\u7834\u8bd1 Enigma\u3002\n        "}, {"color": "#4dabf7", "font": {"color": "black"}, "id": "University of Manchester", "label": "University of Manchester", "shape": "dot", "title": "\n        \u003cb\u003eUniversity of Manchester\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: ORG\u003cbr\u003e\n        \u89c4\u8303\u540d: University of Manchester\u003cbr\u003e\n        KB ID: wiki_university_of_manchester\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u56fe\u7075\u4e8e 1948 \u5e74\u52a0\u5165\u7684\u82f1\u56fd\u5927\u5b66\uff0c\u4e0e\u65e9\u671f\u8ba1\u7b97\u673a\u53d1\u5c55\u5bc6\u5207\u76f8\u5173\u3002\n        "}, {"color": "#51cf66", "font": {"color": "black"}, "id": "Manchester", "label": "Manchester", "shape": "dot", "title": "\n        \u003cb\u003eManchester\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: LOC\u003cbr\u003e\n        \u89c4\u8303\u540d: Manchester\u003cbr\u003e\n        KB ID: \u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u65e0\n        "}, {"color": "#f59f00", "font": {"color": "black"}, "id": "Turing machine", "label": "Turing machine", "shape": "dot", "title": "\n        \u003cb\u003eTuring machine\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: WORK\u003cbr\u003e\n        \u89c4\u8303\u540d: Turing machine\u003cbr\u003e\n        KB ID: wiki_turing_machine\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: Alan Turing \u4e8e 1936 \u5e74\u63d0\u51fa\u7684\u62bd\u8c61\u8ba1\u7b97\u6a21\u578b\uff0c\u662f\u8ba1\u7b97\u7406\u8bba\u4e2d\u7684\u6838\u5fc3\u6982\u5ff5\u3002\n        "}, {"color": "#f59f00", "font": {"color": "black"}, "id": "Enigma machine", "label": "Enigma machine", "shape": "dot", "title": "\n        \u003cb\u003eEnigma machine\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: WORK\u003cbr\u003e\n        \u89c4\u8303\u540d: Enigma machine\u003cbr\u003e\n        KB ID: wiki_enigma\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u5fb7\u56fd\u5728\u4e8c\u6218\u4e2d\u4f7f\u7528\u7684\u52a0\u5bc6\u8bbe\u5907\uff0cBletchley Park \u7684\u5bc6\u7801\u5206\u6790\u5de5\u4f5c\u91cd\u70b9\u4e4b\u4e00\u3002\n        "}, {"color": "#ff6b6b", "font": {"color": "black"}, "id": "Alan Turing", "label": "Alan Turing", "shape": "dot", "title": "\n        \u003cb\u003eAlan Turing\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: PER\u003cbr\u003e\n        \u89c4\u8303\u540d: Alan Turing\u003cbr\u003e\n        KB ID: wiki_alan_turing\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u82f1\u56fd\u6570\u5b66\u5bb6\u3001\u903b\u8f91\u5b66\u5bb6\u548c\u5bc6\u7801\u5206\u6790\u5b66\u5bb6\uff0c\u88ab\u5e7f\u6cdb\u89c6\u4e3a\u8ba1\u7b97\u7406\u8bba\u4e0e\u73b0\u4ee3\u8ba1\u7b97\u673a\u79d1\u5b66\u7684\u91cd\u8981\u5960\u57fa\u8005\u4e4b\u4e00\u3002\n        "}, {"color": "#ced4da", "font": {"color": "black"}, "id": "\u82f1\u56fd", "label": "\u82f1\u56fd", "shape": "dot", "title": "\n        \u003cb\u003e\u82f1\u56fd\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: TERM\u003cbr\u003e\n        \u89c4\u8303\u540d: \u82f1\u56fd\u003cbr\u003e\n        KB ID: \u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u65e0\n        "}, {"color": "#ced4da", "font": {"color": "black"}, "id": "\u6570\u5b66\u5bb6", "label": "\u6570\u5b66\u5bb6", "shape": "dot", "title": "\n        \u003cb\u003e\u6570\u5b66\u5bb6\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: TERM\u003cbr\u003e\n        \u89c4\u8303\u540d: \u6570\u5b66\u5bb6\u003cbr\u003e\n        KB ID: \u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u65e0\n        "}, {"color": "#ced4da", "font": {"color": "black"}, "id": "\u7834\u8bd1", "label": "\u7834\u8bd1", "shape": "dot", "title": "\n        \u003cb\u003e\u7834\u8bd1\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: TERM\u003cbr\u003e\n        \u89c4\u8303\u540d: \u7834\u8bd1\u003cbr\u003e\n        KB ID: \u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u65e0\n        "}, {"color": "#ced4da", "font": {"color": "black"}, "id": "\u540e\u6765", "label": "\u540e\u6765", "shape": "dot", "title": "\n        \u003cb\u003e\u540e\u6765\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: TERM\u003cbr\u003e\n        \u89c4\u8303\u540d: \u540e\u6765\u003cbr\u003e\n        KB ID: \u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u65e0\n        "}, {"color": "#845ef7", "font": {"color": "black"}, "id": "\u8ba1\u7b97\u7406\u8bba", "label": "\u8ba1\u7b97\u7406\u8bba", "shape": "dot", "title": "\n        \u003cb\u003e\u8ba1\u7b97\u7406\u8bba\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: FIELD\u003cbr\u003e\n        \u89c4\u8303\u540d: \u8ba1\u7b97\u7406\u8bba\u003cbr\u003e\n        KB ID: field_computation_theory\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u7814\u7a76\u53ef\u8ba1\u7b97\u6027\u4e0e\u8ba1\u7b97\u6a21\u578b\u7684\u7406\u8bba\u9886\u57df\u3002\n        "}, {"color": "#845ef7", "font": {"color": "black"}, "id": "\u5bc6\u7801\u5206\u6790", "label": "\u5bc6\u7801\u5206\u6790", "shape": "dot", "title": "\n        \u003cb\u003e\u5bc6\u7801\u5206\u6790\u003c/b\u003e\u003cbr\u003e\n        \u7c7b\u578b: FIELD\u003cbr\u003e\n        \u89c4\u8303\u540d: \u5bc6\u7801\u5206\u6790\u003cbr\u003e\n        KB ID: field_cryptanalysis\u003cbr\u003e\n        \u522b\u540d: \u65e0\u003cbr\u003e\n        \u63cf\u8ff0: \u7814\u7a76\u5bc6\u7801\u7834\u8bd1\u4e0e\u5206\u6790\u7684\u65b9\u6cd5\u9886\u57df\u3002\n        "}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Alan Turing", "label": "is_a", "title": "Alan Turing\u662f\u82f1\u56fd\u6570\u5b66\u5bb6", "to": "\u6570\u5b66\u5bb6"}, {"arrows": "to", "from": "Alan Turing", "label": "proposed", "title": "Alan Turing\u63d0\u51fa\u4e86Turing machine", "to": "Turing machine"}, {"arrows": "to", "from": "Alan Turing", "label": "contributed_to", "title": "Alan Turing\u63d0\u51fa\u4e86Turing machine", "to": "\u8ba1\u7b97\u7406\u8bba"}, {"arrows": "to", "from": "Alan Turing", "label": "helped_break", "title": "Alan Turing\u5728Bletchley Park\u53c2\u4e0e\u7834\u8bd1Enigma", "to": "Enigma machine"}, {"arrows": "to", "from": "Alan Turing", "label": "contributed_to", "title": "Alan Turing\u5728Bletchley Park\u53c2\u4e0e\u7834\u8bd1Enigma", "to": "\u5bc6\u7801\u5206\u6790"}, {"arrows": "to", "from": "Alan Turing", "label": "worked_at", "title": "Alan Turing\u540e\u6765\u5728University of Manchester\u5de5\u4f5c", "to": "University of Manchester"}, {"arrows": "to", "from": "A.M. Turing Award", "label": "named_after", "title": "A.M. Turing Award\u4ee5Alan Turing\u547d\u540d", "to": "Alan Turing"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -6,9 +6,7 @@
       "normalized_name": "A.M. Turing Award",
       "kb_id": "award_turing",
       "description": "ACM 设立的重要计算机奖项，以 Alan Turing 命名。",
-      "aliases": [
-        "Turing Award"
-      ]
+      "aliases": []
     },
     {
       "name": "Bletchley Park",
@@ -48,9 +46,7 @@
       "normalized_name": "Enigma machine",
       "kb_id": "wiki_enigma",
       "description": "德国在二战中使用的加密设备，Bletchley Park 的密码分析工作重点之一。",
-      "aliases": [
-        "Enigma"
-      ]
+      "aliases": []
     },
     {
       "name": "Alan Turing",
@@ -58,9 +54,7 @@
       "normalized_name": "Alan Turing",
       "kb_id": "wiki_alan_turing",
       "description": "英国数学家、逻辑学家和密码分析学家，被广泛视为计算理论与现代计算机科学的重要奠基者之一。",
-      "aliases": [
-        "Turing"
-      ]
+      "aliases": []
     },
     {
       "name": "英国",
@@ -116,43 +110,43 @@
       "subject": "Alan Turing",
       "predicate": "is_a",
       "object": "数学家",
-      "evidence": "Alan Turing 是英国数学家"
+      "evidence": "Alan Turing是英国数学家"
     },
     {
       "subject": "Alan Turing",
       "predicate": "proposed",
       "object": "Turing machine",
-      "evidence": "Alan Turing 提出了 Turing machine"
+      "evidence": "Alan Turing提出了Turing machine"
     },
     {
       "subject": "Alan Turing",
       "predicate": "contributed_to",
       "object": "计算理论",
-      "evidence": "Alan Turing 提出了 Turing machine"
+      "evidence": "Alan Turing提出了Turing machine"
     },
     {
       "subject": "Alan Turing",
       "predicate": "helped_break",
       "object": "Enigma machine",
-      "evidence": "Alan Turing 在 Bletchley Park 参与破译 Enigma"
+      "evidence": "Alan Turing在Bletchley Park参与破译Enigma"
     },
     {
       "subject": "Alan Turing",
       "predicate": "contributed_to",
       "object": "密码分析",
-      "evidence": "Alan Turing 在 Bletchley Park 参与破译 Enigma"
+      "evidence": "Alan Turing在Bletchley Park参与破译Enigma"
     },
     {
       "subject": "Alan Turing",
       "predicate": "worked_at",
       "object": "University of Manchester",
-      "evidence": "Alan Turing 后来在 University of Manchester 工作"
+      "evidence": "Alan Turing后来在University of Manchester工作"
     },
     {
       "subject": "A.M. Turing Award",
       "predicate": "named_after",
       "object": "Alan Turing",
-      "evidence": "A.M. Turing Award 以 Alan Turing 命名"
+      "evidence": "A.M. Turing Award以Alan Turing命名"
     }
   ]
 }

@@ -5,11 +5,11 @@ from src.pipeline import KnowledgeGraphPipeline
 
 def main():
     text = """
-    Alan Turing 是英国数学家。
-    Alan Turing 提出了 Turing machine。
-    Alan Turing 在 Bletchley Park 参与破译 Enigma。
-    Alan Turing 后来在 University of Manchester 工作。
-    A.M. Turing Award 以 Alan Turing 命名。
+    Alan Turing是英国数学家。
+    Alan Turing提出了Turing machine。
+    Alan Turing在Bletchley Park参与破译Enigma。
+    Alan Turing后来在University of Manchester工作。
+    A.M. Turing Award以Alan Turing命名。
     """
 
     alias_map = load_json("data/alias_map.json")

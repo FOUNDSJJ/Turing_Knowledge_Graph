@@ -123,6 +123,7 @@ class KnowledgeGraphPipeline:
 
         # 3. 实体消歧 / 归一化
         entities = self.disambiguator.batch_disambiguate(entities, text)
+        entities = self._merge_entities(entities)
         print(f"消歧后实体列表: {[e.normalized_name for e in entities]}\n")
 
         # 4. 关系抽取

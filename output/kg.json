@@ -1,0 +1,424 @@
+{
+  "text": "艾伦·麦席森·图灵于1935年当选为剑桥大学国王学院研究员；1936年提出被称为图灵机的逻辑机通用模型；1938年获普林斯顿大学博士学位；1939年开始在英国军方工作，期间破解德国密码系统恩尼格玛密码机和金枪鱼密码机，加速了盟军取得了二战的胜利；1946年获大英帝国勋章；1945年—1948年在伦敦泰丁顿国家物理实验室负责自动计算引擎的研究工作；1948年任曼彻斯特大学高级讲师、自动数字计算机项目的负责人助理；1949年任曼彻斯特大学计算机实验室副主任；1950年提出机器具备思维的可能性和“图灵测试”的概念；1951年当选为英国皇家学会院士；1954年服用含氰化物的苹果去世，享年41岁。",
+  "sentences": [
+    "艾伦·麦席森·图灵于1935年当选为剑桥大学国王学院研究员；",
+    "1936年提出被称为图灵机的逻辑机通用模型；",
+    "1938年获普林斯顿大学博士学位；",
+    "1939年开始在英国军方工作，期间破解德国密码系统恩尼格玛密码机和金枪鱼密码机，加速了盟军取得了二战的胜利；",
+    "1946年获大英帝国勋章；",
+    "1945年—1948年在伦敦泰丁顿国家物理实验室负责自动计算引擎的研究工作；",
+    "1948年任曼彻斯特大学高级讲师、自动数字计算机项目的负责人助理；",
+    "1949年任曼彻斯特大学计算机实验室副主任；",
+    "1950年提出机器具备思维的可能性和“图灵测试”的概念；",
+    "1951年当选为英国皇家学会院士；",
+    "1954年服用含氰化物的苹果去世，享年41岁。"
+  ],
+  "entities": [
+    {
+      "entity_id": "E001",
+      "name": "1949年任曼彻斯特大学计算机实验室",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1949年任曼彻斯特大学计算机实验室",
+          "label": "ORG",
+          "start": 207,
+          "end": 225,
+          "sentence_id": 7,
+          "confidence": 0.95,
+          "normalized": "1949年任曼彻斯特大学计算机实验室",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          7
+        ]
+      },
+      "description": "",
+      "confidence": 0.95
+    },
+    {
+      "entity_id": "E002",
+      "name": "1935年当选为剑桥大学国王学院",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1935年当选为剑桥大学国王学院",
+          "label": "ORG",
+          "start": 10,
+          "end": 26,
+          "sentence_id": 0,
+          "confidence": 0.95,
+          "normalized": "1935年当选为剑桥大学国王学院",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          0
+        ]
+      },
+      "description": "",
+      "confidence": 0.95
+    },
+    {
+      "entity_id": "E003",
+      "name": "1938年获普林斯顿大学",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1938年获普林斯顿大学",
+          "label": "ORG",
+          "start": 52,
+          "end": 64,
+          "sentence_id": 2,
+          "confidence": 0.95,
+          "normalized": "1938年获普林斯顿大学",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          2
+        ]
+      },
+      "description": "",
+      "confidence": 0.95
+    },
+    {
+      "entity_id": "E004",
+      "name": "伦敦泰丁顿国家物理实验室",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "伦敦泰丁顿国家物理实验室",
+          "label": "ORG",
+          "start": 148,
+          "end": 160,
+          "sentence_id": 5,
+          "confidence": 0.95,
+          "normalized": "伦敦泰丁顿国家物理实验室",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          5
+        ]
+      },
+      "description": "",
+      "confidence": 0.95
+    },
+    {
+      "entity_id": "E005",
+      "name": "1948年任曼彻斯特大学",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1948年任曼彻斯特大学",
+          "label": "ORG",
+          "start": 174,
+          "end": 186,
+          "sentence_id": 6,
+          "confidence": 0.95,
+          "normalized": "1948年任曼彻斯特大学",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          6
+        ]
+      },
+      "description": "",
+      "confidence": 0.95
+    },
+    {
+      "entity_id": "E006",
+      "name": "1936年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1936年",
+          "label": "TIME",
+          "start": 30,
+          "end": 35,
+          "sentence_id": 1,
+          "confidence": 0.7,
+          "normalized": "1936年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          1
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E007",
+      "name": "1939年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1939年",
+          "label": "TIME",
+          "start": 69,
+          "end": 74,
+          "sentence_id": 3,
+          "confidence": 0.7,
+          "normalized": "1939年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E008",
+      "name": "1946年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1946年",
+          "label": "TIME",
+          "start": 123,
+          "end": 128,
+          "sentence_id": 4,
+          "confidence": 0.7,
+          "normalized": "1946年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          4
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E009",
+      "name": "1945年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1945年",
+          "label": "TIME",
+          "start": 136,
+          "end": 141,
+          "sentence_id": 5,
+          "confidence": 0.7,
+          "normalized": "1945年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          5
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E010",
+      "name": "1948年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1948年",
+          "label": "TIME",
+          "start": 142,
+          "end": 147,
+          "sentence_id": 5,
+          "confidence": 0.7,
+          "normalized": "1948年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          5
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E011",
+      "name": "1950年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1950年",
+          "label": "TIME",
+          "start": 229,
+          "end": 234,
+          "sentence_id": 8,
+          "confidence": 0.7,
+          "normalized": "1950年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          8
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E012",
+      "name": "1951年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1951年",
+          "label": "TIME",
+          "start": 257,
+          "end": 262,
+          "sentence_id": 9,
+          "confidence": 0.7,
+          "normalized": "1951年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          9
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E013",
+      "name": "1954年",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1954年",
+          "label": "TIME",
+          "start": 274,
+          "end": 279,
+          "sentence_id": 10,
+          "confidence": 0.7,
+          "normalized": "1954年",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          10
+        ]
+      },
+      "description": "",
+      "confidence": 0.7
+    },
+    {
+      "entity_id": "E014",
+      "name": "期间破解德国",
+      "entity_type": "LOC",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "期间破解德国",
+          "label": "LOC",
+          "start": 84,
+          "end": 90,
+          "sentence_id": 3,
+          "confidence": 0.75,
+          "normalized": "期间破解德国",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.75
+    },
+    {
+      "entity_id": "E015",
+      "name": "英国",
+      "entity_type": "LOC",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "英国",
+          "label": "LOC",
+          "start": 77,
+          "end": 79,
+          "sentence_id": 3,
+          "confidence": 0.55,
+          "normalized": "英国",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.55
+    }
+  ],
+  "relations": [],
+  "metadata": {
+    "entity_count": 15,
+    "relation_count": 0,
+    "mention_count": 15,
+    "label_distribution": {
+      "ORG": 5,
+      "TIME": 8,
+      "LOC": 2
+    },
+    "pipeline": {
+      "rule_ner": true,
+      "crf_enabled": false,
+      "transformer_enabled": false
+    }
+  }
+}

@@ -1,2 +1,9 @@
-jieba>=0.42.1
-scikit-learn>=1.3.0
+scikit-learn>=1.4
+networkx>=3.2
+
+# Optional: enable CRF-based NER training/prediction
+sklearn-crfsuite>=0.3.6
+
+# Optional: pretrained model assistance
+transformers>=4.40
+torch>=2.0

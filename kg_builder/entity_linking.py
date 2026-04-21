@@ -3,78 +3,92 @@ from __future__ import annotations
 import math
 import re
 from collections import defaultdict
+from difflib import SequenceMatcher
+from typing import Any
 
 from .schema import EntityMention, EntityNode
 
-DEFAULT_ALIAS_TABLE: dict[str, str] = {
-    "北大": "北京大学",
-    "清华": "清华大学",
-    "中科院": "中国科学院",
-    "微软": "微软公司",
-    "中国科学院计算技术研究所": "中国科学院计算技术研究所",
-}
-
-DEFAULT_ENTITY_KB: dict[str, dict[str, str]] = {
-    "北京大学": {
-        "entity_type": "ORG",
-        "description": "中国北京市的一所综合性大学。",
-    },
-    "清华大学": {
-        "entity_type": "ORG",
-        "description": "中国北京市的一所研究型大学。",
-    },
-    "中国科学院": {
-        "entity_type": "ORG",
-        "description": "中国自然科学最高学术机构。",
-    },
-    "中国科学院计算技术研究所": {
-        "entity_type": "ORG",
-        "description": "中国科学院下属科研机构，长期从事计算技术研究。",
-    },
-    "微软公司": {
-        "entity_type": "ORG",
-        "description": "全球软件与云服务企业。",
-    },
-}
+PUNCTUATION_TO_STRIP = "，。；;,.!?！？、:：()（）[]【】<>《》\"'“”‘’"
 
 
-def normalize_entity_name(name: str, alias_table: dict[str, str] | None = None) -> str:
-    alias_table = alias_table or DEFAULT_ALIAS_TABLE
-    compact = re.sub(r"[（(].*?[）)]", "", name).strip()
-    compact = re.sub(r"(教授|博士|主任|先生|女士|同学|老师|研究员)$", "", compact)
+def normalize_entity_name(
+    name: str,
+    alias_table: dict[str, str] | None = None,
+    normalization: dict[str, Any] | None = None,
+) -> str:
+    alias_table = alias_table or {}
+    normalization = normalization or {}
+    compact = name.strip().strip(PUNCTUATION_TO_STRIP)
+
+    parenthetical_pattern = normalization.get("strip_parenthetical_pattern")
+    if parenthetical_pattern:
+        compact = re.sub(str(parenthetical_pattern), "", compact).strip()
+
+    strip_suffix_tokens = sorted(
+        normalization.get("strip_suffix_tokens", []),
+        key=len,
+        reverse=True,
+    )
+    for token in strip_suffix_tokens:
+        if compact.endswith(token):
+            compact = compact[: -len(token)].strip()
+            break
+
     return alias_table.get(compact, compact)
 
 
 class EntityExtender:
+    def __init__(
+        self,
+        alias_table: dict[str, str] | None = None,
+        normalization: dict[str, Any] | None = None,
+    ) -> None:
+        self.alias_table = alias_table or {}
+        self.normalization = normalization or {}
+        self.title_suffixes = tuple(self.normalization.get("title_suffixes", []))
+        self.title_window = int(self.normalization.get("title_window", 16))
+
     def expand(self, mentions: list[EntityMention], text: str) -> list[EntityMention]:
         enriched: list[EntityMention] = []
         for mention in mentions:
-            normalized = normalize_entity_name(mention.text)
-            mention.normalized = normalized
+            mention.normalized = normalize_entity_name(
+                mention.text,
+                self.alias_table,
+                self.normalization,
+            )
+            if mention.label == "PERSON" and self.title_suffixes:
+                context_window = text[mention.start : mention.start + self.title_window]
+                title_pattern = "|".join(re.escape(token) for token in self.title_suffixes)
+                if re.search(re.escape(mention.text) + rf"(?:{title_pattern})", context_window):
+                    mention.normalized = normalize_entity_name(
+                        mention.text,
+                        self.alias_table,
+                        self.normalization,
+                    )
             enriched.append(mention)
-            if mention.label == "PERSON":
-                title_match = re.search(
-                    re.escape(mention.text) + r"(教授|博士|主任|老师|研究员)",
-                    text[mention.start : mention.start + 12],
-                )
-                if title_match:
-                    mention.normalized = mention.text
         return enriched
 
 
 class EntityDisambiguator:
     def __init__(
         self,
-        knowledge_base: dict[str, dict[str, str]] | None = None,
+        knowledge_base: dict[str, dict[str, Any]] | None = None,
         alias_table: dict[str, str] | None = None,
+        normalization: dict[str, Any] | None = None,
     ) -> None:
-        self.knowledge_base = knowledge_base or DEFAULT_ENTITY_KB
-        self.alias_table = alias_table or DEFAULT_ALIAS_TABLE
+        self.knowledge_base = knowledge_base or {}
+        self.alias_table = alias_table or {}
+        self.normalization = normalization or {}
+        self.link_threshold = float(self.normalization.get("link_threshold", 0.55))
 
     def link(self, mentions: list[EntityMention], sentences: list[str]) -> list[EntityNode]:
         grouped: dict[str, list[EntityMention]] = defaultdict(list)
         for mention in mentions:
-            candidate = mention.normalized or normalize_entity_name(mention.text, self.alias_table)
+            candidate = mention.normalized or normalize_entity_name(
+                mention.text,
+                self.alias_table,
+                self.normalization,
+            )
             best_name, best_meta = self._resolve_candidate(candidate, mention, sentences)
             mention.normalized = best_name
             grouped[best_name].append(mention)
@@ -83,7 +97,18 @@ class EntityDisambiguator:
         for index, (name, grouped_mentions) in enumerate(grouped.items(), start=1):
             meta = self.knowledge_base.get(name, {})
             entity_type = self._majority_label(grouped_mentions, meta.get("entity_type"))
-            aliases = sorted({item.text for item in grouped_mentions if item.text != name})
+            aliases = sorted(
+                {
+                    alias
+                    for alias in meta.get("aliases", [])
+                    if alias and alias != name
+                }
+                | {
+                    item.text
+                    for item in grouped_mentions
+                    if item.text != name
+                }
+            )
             confidence = sum(item.confidence for item in grouped_mentions) / len(grouped_mentions)
             entities.append(
                 EntityNode(
@@ -96,7 +121,7 @@ class EntityDisambiguator:
                         "mention_count": len(grouped_mentions),
                         "sentence_ids": sorted({item.sentence_id for item in grouped_mentions}),
                     },
-                    description=meta.get("description", ""),
+                    description=str(meta.get("description", "")),
                     confidence=round(confidence, 3),
                 )
             )
@@ -107,20 +132,21 @@ class EntityDisambiguator:
         candidate: str,
         mention: EntityMention,
         sentences: list[str],
-    ) -> tuple[str, dict[str, str]]:
+    ) -> tuple[str, dict[str, Any]]:
+        candidate = self.alias_table.get(candidate, candidate)
         if candidate in self.knowledge_base:
             return candidate, self.knowledge_base[candidate]
 
         best_score = -math.inf
         best_name = candidate
-        best_meta: dict[str, str] = {}
+        best_meta: dict[str, Any] = {}
         context = sentences[mention.sentence_id]
         for kb_name, meta in self.knowledge_base.items():
             score = self._string_similarity(candidate, kb_name)
-            score += self._context_overlap(context, meta.get("description", "")) * 0.3
+            score += self._context_overlap(context, str(meta.get("description", ""))) * 0.3
             if mention.label == meta.get("entity_type"):
                 score += 0.2
-            if score > best_score and score >= 0.5:
+            if score > best_score and score >= self.link_threshold:
                 best_score = score
                 best_name = kb_name
                 best_meta = meta
@@ -140,11 +166,23 @@ class EntityDisambiguator:
 
     @staticmethod
     def _string_similarity(left: str, right: str) -> float:
-        left_set = set(left)
-        right_set = set(right)
-        if not left_set or not right_set:
-            return 0.0
-        return len(left_set & right_set) / len(left_set | right_set)
+        left_lower = left.lower()
+        right_lower = right.lower()
+
+        left_chars = set(left_lower)
+        right_chars = set(right_lower)
+        char_score = 0.0
+        if left_chars and right_chars:
+            char_score = len(left_chars & right_chars) / len(left_chars | right_chars)
+
+        left_tokens = set(re.findall(r"[\u4e00-\u9fa5A-Za-z0-9]+", left_lower))
+        right_tokens = set(re.findall(r"[\u4e00-\u9fa5A-Za-z0-9]+", right_lower))
+        token_score = 0.0
+        if left_tokens and right_tokens:
+            token_score = len(left_tokens & right_tokens) / len(left_tokens | right_tokens)
+
+        sequence_score = SequenceMatcher(None, left_lower, right_lower).ratio()
+        return max(char_score, (token_score + sequence_score) / 2)
 
     @staticmethod
     def _context_overlap(context: str, description: str) -> float:

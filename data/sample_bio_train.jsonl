@@ -1,3 +1,2 @@
 {"text":"张三在北京大学读书。","labels":["B-PERSON","I-PERSON","O","B-ORG","I-ORG","I-ORG","I-ORG","O","O","O"]}
 {"text":"李四加入微软公司。","labels":["B-PERSON","I-PERSON","O","O","B-ORG","I-ORG","I-ORG","I-ORG","O"]}
-{"text":"中国科学院位于北京。","labels":["B-ORG","I-ORG","I-ORG","I-ORG","I-ORG","O","O","B-LOC","I-LOC","O"]}

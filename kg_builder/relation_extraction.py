@@ -1,29 +1,15 @@
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from .schema import EntityNode, RelationEdge
 
-RELATION_RULES: list[tuple[str, str]] = [
-    (r"{head}[^，。；;\n]{{0,12}}(?:就读于|毕业于|考入){tail}", "studies_at"),
-    (r"{head}[^，。；;\n]{{0,12}}(?:任职于|工作于|担任)[^，。；;\n]{{0,8}}{tail}", "works_for"),
-    (r"{head}[^，。；;\n]{{0,8}}(?:创立|创建|创办)了?{tail}", "founded"),
-    (r"{head}[^，。；;\n]{{0,6}}(?:位于|坐落于){tail}", "located_in"),
-    (r"{head}[^，。；;\n]{{0,6}}(?:与|和){tail}[^，。；;\n]{{0,12}}(?:合作|联合)", "cooperates_with"),
-    (r"{head}[^，。；;\n]{{0,6}}(?:属于|隶属于){tail}", "belongs_to"),
-]
-
-RELATION_CONSTRAINTS: dict[str, tuple[set[str], set[str]]] = {
-    "studies_at": ({"PERSON"}, {"ORG"}),
-    "works_for": ({"PERSON"}, {"ORG"}),
-    "founded": ({"PERSON", "ORG"}, {"ORG"}),
-    "located_in": ({"ORG"}, {"LOC"}),
-    "cooperates_with": ({"ORG"}, {"ORG"}),
-    "belongs_to": ({"ORG"}, {"ORG"}),
-}
-
 
 class RelationExtractor:
+    def __init__(self, relation_rules: list[dict[str, Any]] | None = None) -> None:
+        self.relation_rules = relation_rules or []
+
     def extract(
         self,
         sentences: list[str],
@@ -62,16 +48,20 @@ class RelationExtractor:
         relations: list[RelationEdge] = []
         head_variants = [head.name, *head.aliases]
         tail_variants = [tail.name, *tail.aliases]
-        for head_variant in head_variants:
-            for tail_variant in tail_variants:
-                for rule, relation in RELATION_RULES:
-                    pattern = rule.format(
+        for rule in self.relation_rules:
+            relation = str(rule.get("relation", "")).strip()
+            template = str(rule.get("pattern", "")).strip()
+            if not relation or not template:
+                continue
+            if not self._type_matches(rule, head.entity_type, tail.entity_type):
+                continue
+            for head_variant in head_variants:
+                for tail_variant in tail_variants:
+                    pattern = template.format(
                         head=re.escape(head_variant),
                         tail=re.escape(tail_variant),
                     )
                     if re.search(pattern, sentence):
-                        if not self._type_matches(relation, head.entity_type, tail.entity_type):
-                            continue
                         relations.append(
                             RelationEdge(
                                 head=head.entity_id,
@@ -79,17 +69,20 @@ class RelationExtractor:
                                 relation=relation,
                                 sentence_id=sentence_id,
                                 evidence=sentence.strip(),
-                                confidence=0.82,
+                                confidence=float(rule.get("confidence", 0.82)),
                             )
                         )
         return relations
 
     @staticmethod
-    def _type_matches(relation: str, head_type: str, tail_type: str) -> bool:
-        head_allowed, tail_allowed = RELATION_CONSTRAINTS.get(relation, (set(), set()))
-        if not head_allowed and not tail_allowed:
-            return True
-        return head_type in head_allowed and tail_type in tail_allowed
+    def _type_matches(rule: dict[str, Any], head_type: str, tail_type: str) -> bool:
+        head_allowed = set(rule.get("head_types", []))
+        tail_allowed = set(rule.get("tail_types", []))
+        if head_allowed and head_type not in head_allowed:
+            return False
+        if tail_allowed and tail_type not in tail_allowed:
+            return False
+        return True
 
     @staticmethod
     def _deduplicate(relations: list[RelationEdge]) -> list[RelationEdge]:

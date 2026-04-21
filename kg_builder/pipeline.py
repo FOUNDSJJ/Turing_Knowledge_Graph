@@ -1,11 +1,16 @@
 from __future__ import annotations
 
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
+from .config import load_resource_config
 from .entity_linking import EntityDisambiguator, EntityExtender
-from .ner import CRFEntityRecognizer, RuleEntityRecognizer, TransformerAssistant, collect_label_statistics
+from .ner import (
+    CRFEntityRecognizer,
+    RuleEntityRecognizer,
+    TransformerAssistant,
+    collect_label_statistics,
+)
 from .relation_extraction import RelationExtractor
 from .schema import KnowledgeGraph
 
@@ -16,13 +21,45 @@ class KnowledgeGraphPipeline:
         use_crf: bool = False,
         crf_model_path: str | None = None,
         transformer_model: str | None = None,
+        transformer_tokenizer: str | None = None,
+        config_dir: str | None = None,
+        entity_patterns_path: str | None = None,
+        lexicon_path: str | None = None,
+        alias_table_path: str | None = None,
+        knowledge_base_path: str | None = None,
+        relation_rules_path: str | None = None,
+        normalization_path: str | None = None,
     ) -> None:
-        self.rule_ner = RuleEntityRecognizer()
+        self.resources = load_resource_config(
+            config_dir=config_dir,
+            entity_patterns_path=entity_patterns_path,
+            lexicon_path=lexicon_path,
+            alias_table_path=alias_table_path,
+            knowledge_base_path=knowledge_base_path,
+            relation_rules_path=relation_rules_path,
+            normalization_path=normalization_path,
+        )
+        self.rule_ner = RuleEntityRecognizer(
+            entity_patterns=self.resources.entity_patterns,
+            lexicon=self.resources.lexicon,
+            normalization=self.resources.normalization,
+        )
         self.crf_ner = CRFEntityRecognizer(crf_model_path) if use_crf and crf_model_path else None
-        self.transformer_assistant = TransformerAssistant(transformer_model)
-        self.extender = EntityExtender()
-        self.disambiguator = EntityDisambiguator()
-        self.relation_extractor = RelationExtractor()
+        self.transformer_assistant = TransformerAssistant(
+            transformer_model,
+            tokenizer_name=transformer_tokenizer,
+            normalization=self.resources.normalization,
+        )
+        self.extender = EntityExtender(
+            alias_table=self.resources.alias_table,
+            normalization=self.resources.normalization,
+        )
+        self.disambiguator = EntityDisambiguator(
+            knowledge_base=self.resources.knowledge_base,
+            alias_table=self.resources.alias_table,
+            normalization=self.resources.normalization,
+        )
+        self.relation_extractor = RelationExtractor(self.resources.relation_rules)
 
     def build_from_text(self, text: str) -> dict[str, Any]:
         sentences, mentions = self._recognize_entities(text)
@@ -43,6 +80,9 @@ class KnowledgeGraphPipeline:
                     "rule_ner": True,
                     "crf_enabled": bool(self.crf_ner and self.crf_ner.is_ready()),
                     "transformer_enabled": bool(self.transformer_assistant.pipeline),
+                    "config_paths": {
+                        key: str(path) for key, path in self.resources.paths.items()
+                    },
                 },
             },
         )
@@ -52,13 +92,13 @@ class KnowledgeGraphPipeline:
         text = Path(input_path).read_text(encoding="utf-8")
         return self.build_from_text(text)
 
-    def _recognize_entities(self, text: str):
+    def _recognize_entities(self, text: str) -> tuple[list[str], list[Any]]:
         sentences, mentions = self.rule_ner.recognize(text)
         if self.crf_ner and self.crf_ner.is_ready():
-            print("使用 CRF 模型进行实体识别...")
+            print("Using CRF model for auxiliary entity recognition...")
             crf_sentences, crf_mentions = self.crf_ner.recognize(text)
             sentences = crf_sentences or sentences
             mentions.extend(crf_mentions)
         mentions.extend(self.transformer_assistant.augment(text))
-        mentions = self.rule_ner._deduplicate_mentions(mentions)
+        mentions = self.rule_ner.deduplicate_mentions(mentions)
         return sentences, mentions

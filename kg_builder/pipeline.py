@@ -55,6 +55,7 @@ class KnowledgeGraphPipeline:
     def _recognize_entities(self, text: str):
         sentences, mentions = self.rule_ner.recognize(text)
         if self.crf_ner and self.crf_ner.is_ready():
+            print("使用 CRF 模型进行实体识别...")
             crf_sentences, crf_mentions = self.crf_ner.recognize(text)
             sentences = crf_sentences or sentences
             mentions.extend(crf_mentions)

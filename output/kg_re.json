@@ -18,7 +18,10 @@
       "entity_id": "E001",
       "name": "Alan Mathison Turing",
       "entity_type": "PERSON",
-      "aliases": [],
+      "aliases": [
+        "Alan Turing",
+        "Turing"
+      ],
       "mentions": [
         {
           "text": "Alan Mathison Turing",
@@ -29,57 +32,114 @@
           "confidence": 0.984,
           "normalized": "Alan Mathison Turing",
           "source": "transformer"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 1,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 2,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 3,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 4,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 6,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 7,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 8,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 9,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
+        },
+        {
+          "text": "he",
+          "label": "PERSON",
+          "sentence_id": 10,
+          "confidence": 0.92,
+          "normalized": "Alan Mathison Turing",
+          "source": "coreference"
         }
       ],
       "attributes": {
-        "mention_count": 1,
+        "mention_count": 10,
         "sentence_ids": [
-          0
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10
         ]
       },
-      "description": "",
+      "description": "British mathematician, logician and computer scientist.",
       "confidence": 0.984
     },
     {
       "entity_id": "E002",
-      "name": "Fellow",
-      "entity_type": "PERSON",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "Fellow",
-          "label": "PERSON",
-          "start": 35,
-          "end": 41,
-          "sentence_id": 0,
-          "confidence": 0.7,
-          "normalized": "Fellow",
-          "source": "rule"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          0
-        ]
-      },
-      "description": "",
-      "confidence": 0.7
-    },
-    {
-      "entity_id": "E003",
-      "name": "King ' s College",
+      "name": "King's College, Cambridge",
       "entity_type": "ORG",
-      "aliases": [],
+      "aliases": [
+        "King's College"
+      ],
       "mentions": [
         {
-          "text": "King ' s College",
+          "text": "King's College, Cambridge",
           "label": "ORG",
           "start": 45,
-          "end": 59,
+          "end": 70,
           "sentence_id": 0,
           "confidence": 0.985,
-          "normalized": "King ' s College",
+          "normalized": "King's College, Cambridge",
           "source": "transformer"
         }
       ],
@@ -93,20 +153,20 @@
       "confidence": 0.985
     },
     {
-      "entity_id": "E004",
-      "name": "Cambridge",
-      "entity_type": "LOC",
-      "aliases": [],
+      "entity_id": "E003",
+      "name": "Fellow at King's College, Cambridge",
+      "entity_type": "POSITION",
+      "aliases": [
+        "Fellow"
+      ],
       "mentions": [
         {
-          "text": "Cambridge",
-          "label": "LOC",
-          "start": 61,
-          "end": 70,
+          "text": "Fellow at King's College, Cambridge",
+          "label": "POSITION",
           "sentence_id": 0,
-          "confidence": 0.969,
-          "normalized": "Cambridge",
-          "source": "transformer"
+          "confidence": 0.86,
+          "normalized": "Fellow at King's College, Cambridge",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -116,22 +176,20 @@
         ]
       },
       "description": "",
-      "confidence": 0.969
+      "confidence": 0.86
     },
     {
-      "entity_id": "E005",
-      "name": "in 1935",
-      "entity_type": "PRODUCT",
+      "entity_id": "E004",
+      "name": "1935",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1935",
-          "label": "PRODUCT",
-          "start": 71,
-          "end": 78,
+          "text": "1935",
+          "label": "TIME",
           "sentence_id": 0,
-          "confidence": 0.733,
-          "normalized": "in 1935",
+          "confidence": 0.86,
+          "normalized": "1935",
           "source": "rule"
         }
       ],
@@ -142,22 +200,70 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E006",
-      "name": "in 1936",
-      "entity_type": "PRODUCT",
+      "entity_id": "E005",
+      "name": "Turing machine",
+      "entity_type": "CONCEPT",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1936",
-          "label": "PRODUCT",
-          "start": 80,
-          "end": 87,
+          "text": "Turing machine",
+          "label": "CONCEPT",
           "sentence_id": 1,
-          "confidence": 0.733,
-          "normalized": "in 1936",
+          "confidence": 0.86,
+          "normalized": "Turing machine",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          1
+        ]
+      },
+      "description": "A general model of logic machines proposed by Alan Mathison Turing.",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E006",
+      "name": "logic machines",
+      "entity_type": "CONCEPT",
+      "aliases": [
+        "logic machine"
+      ],
+      "mentions": [
+        {
+          "text": "logic machines",
+          "label": "CONCEPT",
+          "sentence_id": 1,
+          "confidence": 0.86,
+          "normalized": "logic machines",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          1
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E007",
+      "name": "1936",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1936",
+          "label": "TIME",
+          "sentence_id": 1,
+          "confidence": 0.86,
+          "normalized": "1936",
           "source": "rule"
         }
       ],
@@ -168,23 +274,21 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E007",
-      "name": "in 1938",
-      "entity_type": "PRODUCT",
+      "entity_id": "E008",
+      "name": "PhD",
+      "entity_type": "CONCEPT",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1938",
-          "label": "PRODUCT",
-          "start": 164,
-          "end": 171,
+          "text": "PhD",
+          "label": "CONCEPT",
           "sentence_id": 2,
-          "confidence": 0.733,
-          "normalized": "in 1938",
-          "source": "rule"
+          "confidence": 0.86,
+          "normalized": "PhD",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -194,23 +298,21 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E008",
-      "name": "PhD from Princeton University",
+      "entity_id": "E009",
+      "name": "Princeton University",
       "entity_type": "ORG",
       "aliases": [],
       "mentions": [
         {
-          "text": "PhD from Princeton University",
+          "text": "Princeton University",
           "label": "ORG",
-          "start": 189,
-          "end": 218,
           "sentence_id": 2,
           "confidence": 0.96,
-          "normalized": "PhD from Princeton University",
-          "source": "rule"
+          "normalized": "Princeton University",
+          "source": "transformer"
         }
       ],
       "attributes": {
@@ -223,19 +325,117 @@
       "confidence": 0.96
     },
     {
-      "entity_id": "E009",
-      "name": "in 1939",
-      "entity_type": "PRODUCT",
+      "entity_id": "E010",
+      "name": "1938",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1939",
-          "label": "PRODUCT",
-          "start": 220,
-          "end": 227,
+          "text": "1938",
+          "label": "TIME",
+          "sentence_id": 2,
+          "confidence": 0.86,
+          "normalized": "1938",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          2
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E011",
+      "name": "British military",
+      "entity_type": "ORG",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "British military",
+          "label": "ORG",
           "sentence_id": 3,
-          "confidence": 0.733,
-          "normalized": "in 1939",
+          "confidence": 0.86,
+          "normalized": "British military",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E012",
+      "name": "Allied",
+      "entity_type": "ORG",
+      "aliases": [
+        "Allies"
+      ],
+      "mentions": [
+        {
+          "text": "Allied",
+          "label": "ORG",
+          "sentence_id": 3,
+          "confidence": 0.86,
+          "normalized": "Allied",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E013",
+      "name": "World War II",
+      "entity_type": "EVE",
+      "aliases": [
+        "Second World War"
+      ],
+      "mentions": [
+        {
+          "text": "World War II",
+          "label": "EVE",
+          "sentence_id": 3,
+          "confidence": 0.86,
+          "normalized": "World War II",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          3
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E014",
+      "name": "1939",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1939",
+          "label": "TIME",
+          "sentence_id": 3,
+          "confidence": 0.86,
+          "normalized": "1939",
           "source": "rule"
         }
       ],
@@ -246,22 +446,46 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E010",
-      "name": "in 1946",
-      "entity_type": "PRODUCT",
+      "entity_id": "E015",
+      "name": "Order of the British Empire",
+      "entity_type": "AWARD",
+      "aliases": [
+        "OBE"
+      ],
+      "mentions": [
+        {
+          "text": "Order of the British Empire",
+          "label": "AWARD",
+          "sentence_id": 4,
+          "confidence": 0.86,
+          "normalized": "Order of the British Empire",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          4
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E016",
+      "name": "1946",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1946",
-          "label": "PRODUCT",
-          "start": 321,
-          "end": 328,
+          "text": "1946",
+          "label": "TIME",
           "sentence_id": 4,
-          "confidence": 0.733,
-          "normalized": "in 1946",
+          "confidence": 0.86,
+          "normalized": "1946",
           "source": "rule"
         }
       ],
@@ -272,49 +496,23 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E011",
-      "name": "British Empire",
-      "entity_type": "PERSON",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "British Empire",
-          "label": "PERSON",
-          "start": 362,
-          "end": 376,
-          "sentence_id": 4,
-          "confidence": 0.96,
-          "normalized": "British Empire",
-          "source": "rule"
-        }
+      "entity_id": "E017",
+      "name": "automatic computing engines",
+      "entity_type": "CONCEPT",
+      "aliases": [
+        "automatic computing engine"
       ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          4
-        ]
-      },
-      "description": "",
-      "confidence": 0.96
-    },
-    {
-      "entity_id": "E012",
-      "name": "from 1945",
-      "entity_type": "PRODUCT",
-      "aliases": [],
       "mentions": [
         {
-          "text": "from 1945",
-          "label": "PRODUCT",
-          "start": 378,
-          "end": 387,
+          "text": "automatic computing engines",
+          "label": "CONCEPT",
           "sentence_id": 5,
-          "confidence": 0.8,
-          "normalized": "from 1945",
-          "source": "rule"
+          "confidence": 0.86,
+          "normalized": "automatic computing engines",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -324,36 +522,10 @@
         ]
       },
       "description": "",
-      "confidence": 0.8
+      "confidence": 0.86
     },
     {
-      "entity_id": "E013",
-      "name": "to 1948",
-      "entity_type": "PRODUCT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "to 1948",
-          "label": "PRODUCT",
-          "start": 388,
-          "end": 395,
-          "sentence_id": 5,
-          "confidence": 0.733,
-          "normalized": "to 1948",
-          "source": "rule"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          5
-        ]
-      },
-      "description": "",
-      "confidence": 0.733
-    },
-    {
-      "entity_id": "E014",
+      "entity_id": "E018",
       "name": "National Physical Laboratory",
       "entity_type": "ORG",
       "aliases": [],
@@ -361,8 +533,6 @@
         {
           "text": "National Physical Laboratory",
           "label": "ORG",
-          "start": 464,
-          "end": 492,
           "sentence_id": 5,
           "confidence": 0.997,
           "normalized": "National Physical Laboratory",
@@ -379,7 +549,7 @@
       "confidence": 0.997
     },
     {
-      "entity_id": "E015",
+      "entity_id": "E019",
       "name": "Teddington",
       "entity_type": "LOC",
       "aliases": [],
@@ -387,8 +557,6 @@
         {
           "text": "Teddington",
           "label": "LOC",
-          "start": 496,
-          "end": 506,
           "sentence_id": 5,
           "confidence": 0.991,
           "normalized": "Teddington",
@@ -405,7 +573,7 @@
       "confidence": 0.991
     },
     {
-      "entity_id": "E016",
+      "entity_id": "E020",
       "name": "London",
       "entity_type": "LOC",
       "aliases": [],
@@ -413,8 +581,6 @@
         {
           "text": "London",
           "label": "LOC",
-          "start": 508,
-          "end": 514,
           "sentence_id": 5,
           "confidence": 0.998,
           "normalized": "London",
@@ -431,20 +597,75 @@
       "confidence": 0.998
     },
     {
-      "entity_id": "E017",
-      "name": "in 1948",
-      "entity_type": "PRODUCT",
+      "entity_id": "E021",
+      "name": "1945",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1948",
-          "label": "PRODUCT",
-          "start": 516,
-          "end": 523,
-          "sentence_id": 6,
-          "confidence": 0.733,
-          "normalized": "in 1948",
+          "text": "1945",
+          "label": "TIME",
+          "sentence_id": 5,
+          "confidence": 0.86,
+          "normalized": "1945",
           "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          5
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E022",
+      "name": "1948",
+      "entity_type": "TIME",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "1948",
+          "label": "TIME",
+          "sentence_id": 5,
+          "confidence": 0.86,
+          "normalized": "1948",
+          "source": "rule"
+        },
+        {
+          "text": "1948",
+          "label": "TIME",
+          "sentence_id": 6,
+          "confidence": 0.86,
+          "normalized": "1948",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 2,
+        "sentence_ids": [
+          5,
+          6
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E023",
+      "name": "senior lecturer",
+      "entity_type": "POSITION",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "senior lecturer",
+          "label": "POSITION",
+          "sentence_id": 6,
+          "confidence": 0.86,
+          "normalized": "senior lecturer",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -454,10 +675,10 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E018",
+      "entity_id": "E024",
       "name": "University of Manchester",
       "entity_type": "ORG",
       "aliases": [],
@@ -465,8 +686,6 @@
         {
           "text": "University of Manchester",
           "label": "ORG",
-          "start": 560,
-          "end": 584,
           "sentence_id": 6,
           "confidence": 0.997,
           "normalized": "University of Manchester",
@@ -483,19 +702,19 @@
       "confidence": 0.997
     },
     {
-      "entity_id": "E019",
-      "name": "Automatic Digital Computer",
-      "entity_type": "ORG",
-      "aliases": [],
+      "entity_id": "E025",
+      "name": "Automatic Digital Computer project",
+      "entity_type": "PROJECT",
+      "aliases": [
+        "Automatic Digital Computer"
+      ],
       "mentions": [
         {
-          "text": "Automatic Digital Computer",
-          "label": "ORG",
-          "start": 618,
-          "end": 644,
+          "text": "Automatic Digital Computer project",
+          "label": "PROJECT",
           "sentence_id": 6,
           "confidence": 0.972,
-          "normalized": "Automatic Digital Computer",
+          "normalized": "Automatic Digital Computer project",
           "source": "transformer"
         }
       ],
@@ -509,20 +728,44 @@
       "confidence": 0.972
     },
     {
-      "entity_id": "E020",
-      "name": "in 1949",
-      "entity_type": "PRODUCT",
+      "entity_id": "E026",
+      "name": "assistant to the head of the Automatic Digital Computer project",
+      "entity_type": "POSITION",
+      "aliases": [
+        "assistant"
+      ],
+      "mentions": [
+        {
+          "text": "assistant to the head of the Automatic Digital Computer project",
+          "label": "POSITION",
+          "sentence_id": 6,
+          "confidence": 0.86,
+          "normalized": "assistant to the head of the Automatic Digital Computer project",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          6
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E027",
+      "name": "deputy director",
+      "entity_type": "POSITION",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1949",
-          "label": "PRODUCT",
-          "start": 654,
-          "end": 661,
+          "text": "deputy director",
+          "label": "POSITION",
           "sentence_id": 7,
-          "confidence": 0.733,
-          "normalized": "in 1949",
-          "source": "rule"
+          "confidence": 0.86,
+          "normalized": "deputy director",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -532,10 +775,10 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E021",
+      "entity_id": "E028",
       "name": "Computer Laboratory",
       "entity_type": "ORG",
       "aliases": [],
@@ -543,8 +786,6 @@
         {
           "text": "Computer Laboratory",
           "label": "ORG",
-          "start": 700,
-          "end": 719,
           "sentence_id": 7,
           "confidence": 0.999,
           "normalized": "Computer Laboratory",
@@ -561,20 +802,42 @@
       "confidence": 0.999
     },
     {
-      "entity_id": "E022",
-      "name": "in 1950",
-      "entity_type": "PRODUCT",
+      "entity_id": "E029",
+      "name": "1949",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1950",
-          "label": "PRODUCT",
-          "start": 721,
-          "end": 728,
-          "sentence_id": 8,
-          "confidence": 0.733,
-          "normalized": "in 1950",
+          "text": "1949",
+          "label": "TIME",
+          "sentence_id": 7,
+          "confidence": 0.86,
+          "normalized": "1949",
           "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          7
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E030",
+      "name": "machines possessing thought",
+      "entity_type": "CONCEPT",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "machines possessing thought",
+          "label": "CONCEPT",
+          "sentence_id": 8,
+          "confidence": 0.86,
+          "normalized": "machines possessing thought",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -584,19 +847,17 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E023",
+      "entity_id": "E031",
       "name": "Turing Test",
-      "entity_type": "PERSON",
+      "entity_type": "CONCEPT",
       "aliases": [],
       "mentions": [
         {
           "text": "Turing Test",
-          "label": "PERSON",
-          "start": 812,
-          "end": 823,
+          "label": "CONCEPT",
           "sentence_id": 8,
           "confidence": 0.867,
           "normalized": "Turing Test",
@@ -613,20 +874,44 @@
       "confidence": 0.867
     },
     {
-      "entity_id": "E024",
-      "name": "in 1951",
-      "entity_type": "PRODUCT",
+      "entity_id": "E032",
+      "name": "1950",
+      "entity_type": "TIME",
       "aliases": [],
       "mentions": [
         {
-          "text": "in 1951",
-          "label": "PRODUCT",
-          "start": 825,
-          "end": 832,
-          "sentence_id": 9,
-          "confidence": 0.733,
-          "normalized": "in 1951",
+          "text": "1950",
+          "label": "TIME",
+          "sentence_id": 8,
+          "confidence": 0.86,
+          "normalized": "1950",
           "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          8
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E033",
+      "name": "Fellow of the Royal Society",
+      "entity_type": "POSITION",
+      "aliases": [
+        "FRS"
+      ],
+      "mentions": [
+        {
+          "text": "Fellow of the Royal Society",
+          "label": "POSITION",
+          "sentence_id": 9,
+          "confidence": 0.86,
+          "normalized": "Fellow of the Royal Society",
+          "source": "relation_model"
         }
       ],
       "attributes": {
@@ -636,10 +921,10 @@
         ]
       },
       "description": "",
-      "confidence": 0.733
+      "confidence": 0.86
     },
     {
-      "entity_id": "E025",
+      "entity_id": "E034",
       "name": "Royal Society",
       "entity_type": "ORG",
       "aliases": [],
@@ -647,8 +932,6 @@
         {
           "text": "Royal Society",
           "label": "ORG",
-          "start": 865,
-          "end": 878,
           "sentence_id": 9,
           "confidence": 0.997,
           "normalized": "Royal Society",
@@ -665,323 +948,7 @@
       "confidence": 0.997
     },
     {
-      "entity_id": "E026",
-      "name": "in 1954",
-      "entity_type": "PRODUCT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "in 1954",
-          "label": "PRODUCT",
-          "start": 880,
-          "end": 887,
-          "sentence_id": 10,
-          "confidence": 0.733,
-          "normalized": "in 1954",
-          "source": "rule"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          10
-        ]
-      },
-      "description": "",
-      "confidence": 0.733
-    },
-    {
-      "entity_id": "E027",
-      "name": "of 41",
-      "entity_type": "PRODUCT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "of 41",
-          "label": "PRODUCT",
-          "start": 952,
-          "end": 957,
-          "sentence_id": 10,
-          "confidence": 0.667,
-          "normalized": "of 41",
-          "source": "rule"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          10
-        ]
-      },
-      "description": "",
-      "confidence": 0.667
-    },
-    {
-      "entity_id": "E028",
-      "name": "King's College, Cambridge",
-      "entity_type": "MEDIA",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "King's College, Cambridge",
-          "label": "MEDIA",
-          "sentence_id": 0,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          0
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E029",
-      "name": "Turing machine",
-      "entity_type": "CONCEPT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "Turing machine",
-          "label": "CONCEPT",
-          "sentence_id": 1,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          1
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E030",
-      "name": "logic machine",
-      "entity_type": "CONCEPT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "logic machine",
-          "label": "CONCEPT",
-          "sentence_id": 1,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          1
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E031",
-      "name": "PhD",
-      "entity_type": "CONCEPT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "PhD",
-          "label": "CONCEPT",
-          "sentence_id": 2,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          2
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E032",
-      "name": "Allied",
-      "entity_type": "CONCEPT",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "Allied",
-          "label": "CONCEPT",
-          "sentence_id": 3,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          3
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E033",
-      "name": "World War II",
-      "entity_type": "EVE",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "World War II",
-          "label": "EVE",
-          "sentence_id": 3,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          3
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E034",
-      "name": "Order of the British Empire",
-      "entity_type": "ORG",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "Order of the British Empire",
-          "label": "ORG",
-          "sentence_id": 4,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          4
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
       "entity_id": "E035",
-      "name": "1946",
-      "entity_type": "TIME",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "1946",
-          "label": "TIME",
-          "sentence_id": 4,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          4
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E036",
-      "name": "1949",
-      "entity_type": "TIME",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "1949",
-          "label": "TIME",
-          "sentence_id": 7,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          7
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E037",
-      "name": "1950",
-      "entity_type": "TIME",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "1950",
-          "label": "TIME",
-          "sentence_id": 8,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          8
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E038",
-      "name": "Fellow of the Royal Society",
-      "entity_type": "PERSON",
-      "aliases": [],
-      "mentions": [
-        {
-          "text": "Fellow of the Royal Society",
-          "label": "PERSON",
-          "sentence_id": 9,
-          "confidence": 0.86,
-          "source": "relation_model"
-        }
-      ],
-      "attributes": {
-        "mention_count": 1,
-        "sentence_ids": [
-          9
-        ],
-        "source": "relation_model"
-      },
-      "description": "Generated from relation extraction triplet.",
-      "confidence": 0.86
-    },
-    {
-      "entity_id": "E039",
       "name": "1951",
       "entity_type": "TIME",
       "aliases": [],
@@ -991,21 +958,69 @@
           "label": "TIME",
           "sentence_id": 9,
           "confidence": 0.86,
-          "source": "relation_model"
+          "normalized": "1951",
+          "source": "rule"
         }
       ],
       "attributes": {
         "mention_count": 1,
         "sentence_ids": [
           9
-        ],
-        "source": "relation_model"
+        ]
       },
-      "description": "Generated from relation extraction triplet.",
+      "description": "",
       "confidence": 0.86
     },
     {
-      "entity_id": "E040",
+      "entity_id": "E036",
+      "name": "cyanide",
+      "entity_type": "CHEMICAL",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "cyanide",
+          "label": "CHEMICAL",
+          "sentence_id": 10,
+          "confidence": 0.86,
+          "normalized": "cyanide",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          10
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E037",
+      "name": "apple containing cyanide",
+      "entity_type": "OBJECT",
+      "aliases": [],
+      "mentions": [
+        {
+          "text": "apple containing cyanide",
+          "label": "OBJECT",
+          "sentence_id": 10,
+          "confidence": 0.86,
+          "normalized": "apple containing cyanide",
+          "source": "relation_model"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          10
+        ]
+      },
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E038",
       "name": "1954",
       "entity_type": "TIME",
       "aliases": [],
@@ -1015,119 +1030,377 @@
           "label": "TIME",
           "sentence_id": 10,
           "confidence": 0.86,
-          "source": "relation_model"
+          "normalized": "1954",
+          "source": "rule"
         }
       ],
       "attributes": {
         "mention_count": 1,
         "sentence_ids": [
           10
-        ],
-        "source": "relation_model"
+        ]
       },
-      "description": "Generated from relation extraction triplet.",
+      "description": "",
+      "confidence": 0.86
+    },
+    {
+      "entity_id": "E039",
+      "name": "41",
+      "entity_type": "NUMBER",
+      "aliases": [
+        "age of 41"
+      ],
+      "mentions": [
+        {
+          "text": "41",
+          "label": "NUMBER",
+          "sentence_id": 10,
+          "confidence": 0.86,
+          "normalized": "41",
+          "source": "rule"
+        }
+      ],
+      "attributes": {
+        "mention_count": 1,
+        "sentence_ids": [
+          10
+        ]
+      },
+      "description": "Age at death.",
       "confidence": 0.86
     }
   ],
   "relations": [
     {
       "head": "E001",
-      "tail": "E028",
-      "relation": "educated_at",
+      "tail": "E003",
+      "relation": "elected_as",
       "sentence_id": 0,
       "evidence": "Alan Mathison Turing was elected a Fellow at King's College, Cambridge in 1935;",
       "confidence": 0.86
     },
     {
-      "head": "E029",
-      "tail": "E030",
+      "head": "E003",
+      "tail": "E002",
+      "relation": "affiliated_with",
+      "sentence_id": 0,
+      "evidence": "Alan Mathison Turing was elected a Fellow at King's College, Cambridge in 1935;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E004",
+      "relation": "elected_time",
+      "sentence_id": 0,
+      "evidence": "Alan Mathison Turing was elected a Fellow at King's College, Cambridge in 1935;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E005",
+      "relation": "proposed",
+      "sentence_id": 1,
+      "evidence": "in 1936, he proposed a general model of logic machines known as the Turing machine;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E005",
+      "tail": "E006",
       "relation": "subclass_of",
       "sentence_id": 1,
       "evidence": "in 1936, he proposed a general model of logic machines known as the Turing machine;",
       "confidence": 0.86
     },
     {
-      "head": "E031",
+      "head": "E005",
+      "tail": "E007",
+      "relation": "inception",
+      "sentence_id": 1,
+      "evidence": "in 1936, he proposed a general model of logic machines known as the Turing machine;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
       "tail": "E008",
-      "relation": "manufacturer",
+      "relation": "received_degree",
       "sentence_id": 2,
       "evidence": "in 1938, he received his PhD from Princeton University;",
       "confidence": 0.86
     },
     {
-      "head": "E032",
-      "tail": "E033",
-      "relation": "conflict",
+      "head": "E008",
+      "tail": "E009",
+      "relation": "awarded_by",
+      "sentence_id": 2,
+      "evidence": "in 1938, he received his PhD from Princeton University;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E010",
+      "relation": "received_time",
+      "sentence_id": 2,
+      "evidence": "in 1938, he received his PhD from Princeton University;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E011",
+      "relation": "worked_for",
       "sentence_id": 3,
       "evidence": "in 1939, he began working for the British military, accelerating the Allied victory in World War II;",
       "confidence": 0.86
     },
     {
-      "head": "E033",
-      "tail": "E032",
+      "head": "E001",
+      "tail": "E012",
+      "relation": "contributed_to_victory",
+      "sentence_id": 3,
+      "evidence": "in 1939, he began working for the British military, accelerating the Allied victory in World War II;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E012",
+      "tail": "E013",
       "relation": "participant",
       "sentence_id": 3,
       "evidence": "in 1939, he began working for the British military, accelerating the Allied victory in World War II;",
       "confidence": 0.86
     },
     {
-      "head": "E034",
-      "tail": "E035",
-      "relation": "inception",
+      "head": "E001",
+      "tail": "E014",
+      "relation": "work_start_time",
+      "sentence_id": 3,
+      "evidence": "in 1939, he began working for the British military, accelerating the Allied victory in World War II;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E015",
+      "relation": "awarded",
       "sentence_id": 4,
       "evidence": "in 1946, he was awarded the Order of the British Empire;",
       "confidence": 0.86
     },
     {
-      "head": "E014",
-      "tail": "E015",
-      "relation": "headquarters_location",
+      "head": "E015",
+      "tail": "E016",
+      "relation": "award_time",
+      "sentence_id": 4,
+      "evidence": "in 1946, he was awarded the Order of the British Empire;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E017",
+      "relation": "research_topic",
+      "sentence_id": 5,
+      "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E018",
+      "relation": "worked_at",
+      "sentence_id": 5,
+      "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E018",
+      "tail": "E019",
+      "relation": "located_in",
       "sentence_id": 5,
       "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
       "confidence": 0.86
     },
     {
       "head": "E019",
-      "tail": "E018",
-      "relation": "developer",
+      "tail": "E020",
+      "relation": "located_in",
+      "sentence_id": 5,
+      "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E021",
+      "relation": "role_start_time",
+      "sentence_id": 5,
+      "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E022",
+      "relation": "role_end_time",
+      "sentence_id": 5,
+      "evidence": "from 1945 to 1948, he was in charge of research on automatic computing engines at the National Physical Laboratory in Teddington, London;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E023",
+      "relation": "became",
       "sentence_id": 6,
       "evidence": "in 1948, he became a senior lecturer at the University of Manchester and assistant to the head of the Automatic Digital Computer project;",
       "confidence": 0.86
     },
     {
-      "head": "E021",
-      "tail": "E036",
-      "relation": "inception",
+      "head": "E023",
+      "tail": "E024",
+      "relation": "affiliated_with",
+      "sentence_id": 6,
+      "evidence": "in 1948, he became a senior lecturer at the University of Manchester and assistant to the head of the Automatic Digital Computer project;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E026",
+      "relation": "became",
+      "sentence_id": 6,
+      "evidence": "in 1948, he became a senior lecturer at the University of Manchester and assistant to the head of the Automatic Digital Computer project;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E026",
+      "tail": "E025",
+      "relation": "associated_project",
+      "sentence_id": 6,
+      "evidence": "in 1948, he became a senior lecturer at the University of Manchester and assistant to the head of the Automatic Digital Computer project;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E022",
+      "relation": "became_time",
+      "sentence_id": 6,
+      "evidence": "in 1948, he became a senior lecturer at the University of Manchester and assistant to the head of the Automatic Digital Computer project;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E027",
+      "relation": "became",
       "sentence_id": 7,
       "evidence": "in 1949, he became the deputy director of the Computer Laboratory;",
       "confidence": 0.86
     },
     {
-      "head": "E023",
-      "tail": "E037",
+      "head": "E027",
+      "tail": "E028",
+      "relation": "affiliated_with",
+      "sentence_id": 7,
+      "evidence": "in 1949, he became the deputy director of the Computer Laboratory;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E029",
+      "relation": "became_time",
+      "sentence_id": 7,
+      "evidence": "in 1949, he became the deputy director of the Computer Laboratory;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E030",
+      "relation": "proposed",
+      "sentence_id": 8,
+      "evidence": "in 1950, he proposed the possibility of machines possessing thought and the concept of the Turing Test;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E031",
+      "relation": "proposed",
+      "sentence_id": 8,
+      "evidence": "in 1950, he proposed the possibility of machines possessing thought and the concept of the Turing Test;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E031",
+      "tail": "E032",
       "relation": "inception",
       "sentence_id": 8,
       "evidence": "in 1950, he proposed the possibility of machines possessing thought and the concept of the Turing Test;",
       "confidence": 0.86
     },
     {
-      "head": "E038",
-      "tail": "E039",
-      "relation": "inception",
+      "head": "E001",
+      "tail": "E033",
+      "relation": "elected_as",
       "sentence_id": 9,
       "evidence": "in 1951, he was elected a Fellow of the Royal Society;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E033",
+      "tail": "E034",
+      "relation": "affiliated_with",
+      "sentence_id": 9,
+      "evidence": "in 1951, he was elected a Fellow of the Royal Society;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E035",
+      "relation": "elected_time",
+      "sentence_id": 9,
+      "evidence": "in 1951, he was elected a Fellow of the Royal Society;",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E038",
+      "relation": "date_of_death",
+      "sentence_id": 10,
+      "evidence": "in 1954, he died after ingesting an apple containing cyanide at the age of 41.",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E037",
+      "relation": "cause_of_death_related_to",
+      "sentence_id": 10,
+      "evidence": "in 1954, he died after ingesting an apple containing cyanide at the age of 41.",
+      "confidence": 0.86
+    },
+    {
+      "head": "E037",
+      "tail": "E036",
+      "relation": "contains",
+      "sentence_id": 10,
+      "evidence": "in 1954, he died after ingesting an apple containing cyanide at the age of 41.",
+      "confidence": 0.86
+    },
+    {
+      "head": "E001",
+      "tail": "E039",
+      "relation": "age_at_death",
+      "sentence_id": 10,
+      "evidence": "in 1954, he died after ingesting an apple containing cyanide at the age of 41.",
       "confidence": 0.86
     }
   ],
   "metadata": {
-    "entity_count": 40,
-    "relation_count": 11,
-    "mention_count": 27,
+    "entity_count": 39,
+    "relation_count": 39,
+    "mention_count": 48,
     "label_distribution": {
-      "PERSON": 4,
-      "ORG": 7,
-      "LOC": 3,
-      "PRODUCT": 13
+      "PERSON": 1,
+      "ORG": 8,
+      "LOC": 2,
+      "TIME": 13,
+      "CONCEPT": 6,
+      "POSITION": 6,
+      "AWARD": 1,
+      "PROJECT": 1,
+      "EVE": 1,
+      "CHEMICAL": 1,
+      "OBJECT": 1,
+      "NUMBER": 1
     },
     "pipeline": {
       "rule_ner": true,
@@ -1142,8 +1415,8 @@
         "decoder_start_token": "tp_XX",
         "augment_entities": true,
         "context_window": 1,
-        "model_generated_entity_count": 13,
-        "model_triplet_count": 12,
+        "model_generated_entity_count": 39,
+        "model_triplet_count": 39,
         "rule_backend_enabled": false
       },
       "config_paths": {

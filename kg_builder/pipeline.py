@@ -29,6 +29,15 @@ class KnowledgeGraphPipeline:
         knowledge_base_path: str | None = None,
         relation_rules_path: str | None = None,
         normalization_path: str | None = None,
+        relation_extractor: str = "hybrid",
+        relation_model: str | None = None,
+        relation_tokenizer: str | None = None,
+        relation_device: int | None = None,
+        relation_max_length: int = 256,
+        relation_num_beams: int = 3,
+        relation_min_confidence: float = 0.0,
+        relation_source_lang: str | None = None,
+        relation_decoder_start_token: str | None = None,
     ) -> None:
         self.resources = load_resource_config(
             config_dir=config_dir,
@@ -59,7 +68,18 @@ class KnowledgeGraphPipeline:
             alias_table=self.resources.alias_table,
             normalization=self.resources.normalization,
         )
-        self.relation_extractor = RelationExtractor(self.resources.relation_rules)
+        self.relation_extractor = RelationExtractor(
+            self.resources.relation_rules,
+            mode=relation_extractor,
+            model_name=relation_model,
+            tokenizer_name=relation_tokenizer,
+            device=relation_device,
+            max_length=relation_max_length,
+            num_beams=relation_num_beams,
+            min_confidence=relation_min_confidence,
+            source_lang=relation_source_lang,
+            decoder_start_token=relation_decoder_start_token,
+        )
 
     def build_from_text(self, text: str) -> dict[str, Any]:
         sentences, mentions = self._recognize_entities(text)
@@ -80,6 +100,7 @@ class KnowledgeGraphPipeline:
                     "rule_ner": True,
                     "crf_enabled": bool(self.crf_ner and self.crf_ner.is_ready()),
                     "transformer_enabled": bool(self.transformer_assistant.pipeline),
+                    "relation_extraction": self.relation_extractor.metadata(),
                     "config_paths": {
                         key: str(path) for key, path in self.resources.paths.items()
                     },

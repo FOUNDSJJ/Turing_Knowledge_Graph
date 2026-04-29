@@ -17,6 +17,8 @@ class ExtractedTriplet:
     relation: str
     tail: str
     confidence: float = DEFAULT_MODEL_CONFIDENCE
+    head_type: str | None = None
+    tail_type: str | None = None
 
 
 class RelationExtractor:
@@ -39,6 +41,8 @@ class RelationExtractor:
         min_confidence: float = 0.0,
         source_lang: str | None = None,
         decoder_start_token: str | None = None,
+        augment_entities: bool = True,
+        context_window: int = 1,
     ) -> None:
         self.mode = self._normalize_mode(mode)
         if self.mode == "transformer" and not model_name:
@@ -55,6 +59,8 @@ class RelationExtractor:
             min_confidence=min_confidence,
             source_lang=source_lang,
             decoder_start_token=decoder_start_token,
+            augment_entities=augment_entities,
+            context_window=context_window,
         )
         if self.mode == "transformer" and not self.model_extractor.is_ready():
             detail = self.model_extractor.load_error or "unknown model loading error"
@@ -83,6 +89,10 @@ class RelationExtractor:
             "transformer_error": self.model_extractor.load_error,
             "source_lang": self.model_extractor.source_lang,
             "decoder_start_token": self.model_extractor.decoder_start_token,
+            "augment_entities": self.model_extractor.augment_entities,
+            "context_window": self.model_extractor.context_window,
+            "model_generated_entity_count": self.model_extractor.generated_entity_count,
+            "model_triplet_count": self.model_extractor.triplet_count,
             "rule_backend_enabled": self.mode in {"rules", "hybrid"},
         }
 
@@ -183,6 +193,8 @@ class TransformerRelationExtractor:
         min_confidence: float = 0.0,
         source_lang: str | None = None,
         decoder_start_token: str | None = None,
+        augment_entities: bool = True,
+        context_window: int = 1,
     ) -> None:
         self.model_name = model_name
         self.tokenizer_name = tokenizer_name or model_name
@@ -192,6 +204,10 @@ class TransformerRelationExtractor:
         self.min_confidence = min_confidence
         self.source_lang = source_lang
         self.decoder_start_token = decoder_start_token
+        self.augment_entities = augment_entities
+        self.context_window = max(1, context_window)
+        self.generated_entity_count = 0
+        self.triplet_count = 0
         self.model = None
         self.tokenizer = None
         self.load_error: str | None = None
@@ -230,19 +246,23 @@ class TransformerRelationExtractor:
 
         relations: list[RelationEdge] = []
         entity_index = build_sentence_entity_index(entities)
-        for sentence_id, sentence in enumerate(sentences):
+        next_id = next_entity_number(entities)
+        self.generated_entity_count = 0
+        self.triplet_count = 0
+        for sentence_id, sentence in iter_relation_contexts(sentences, self.context_window):
             local_entities = entity_index.get(sentence_id, [])
-            if len(local_entities) < 2:
-                continue
             generated_texts = self._generate(sentence)
             for generated_text in generated_texts:
                 triplets = self._parse_triplets(generated_text)
+                self.triplet_count += len(triplets)
                 for triplet in triplets:
-                    edge = self._triplet_to_edge(
+                    edge, next_id = self._triplet_to_edge(
                         triplet=triplet,
                         sentence=sentence,
                         sentence_id=sentence_id,
                         local_entities=local_entities,
+                        all_entities=entities,
+                        next_id=next_id,
                     )
                     if edge is not None:
                         relations.append(edge)
@@ -302,23 +322,93 @@ class TransformerRelationExtractor:
         sentence: str,
         sentence_id: int,
         local_entities: list[EntityNode],
-    ) -> RelationEdge | None:
+        all_entities: list[EntityNode],
+        next_id: int,
+    ) -> tuple[RelationEdge | None, int]:
         if triplet.confidence < self.min_confidence:
-            return None
-        head = match_entity(triplet.head, local_entities)
-        tail = match_entity(triplet.tail, local_entities)
+            return None, next_id
+        head, next_id = self._resolve_triplet_entity(
+            name=triplet.head,
+            entity_type=triplet.head_type,
+            sentence_id=sentence_id,
+            local_entities=local_entities,
+            all_entities=all_entities,
+            next_id=next_id,
+        )
+        tail, next_id = self._resolve_triplet_entity(
+            name=triplet.tail,
+            entity_type=triplet.tail_type,
+            sentence_id=sentence_id,
+            local_entities=local_entities,
+            all_entities=all_entities,
+            next_id=next_id,
+        )
         relation = normalize_relation_name(triplet.relation)
         if head is None or tail is None or head.entity_id == tail.entity_id or not relation:
-            return None
+            return None, next_id
         confidence = min(0.99, max(0.0, triplet.confidence))
-        return RelationEdge(
-            head=head.entity_id,
-            tail=tail.entity_id,
-            relation=relation,
-            sentence_id=sentence_id,
-            evidence=sentence.strip(),
-            confidence=round(confidence, 3),
+        return (
+            RelationEdge(
+                head=head.entity_id,
+                tail=tail.entity_id,
+                relation=relation,
+                sentence_id=sentence_id,
+                evidence=sentence.strip(),
+                confidence=round(confidence, 3),
+            ),
+            next_id,
         )
+
+    def _resolve_triplet_entity(
+        self,
+        name: str,
+        entity_type: str | None,
+        sentence_id: int,
+        local_entities: list[EntityNode],
+        all_entities: list[EntityNode],
+        next_id: int,
+    ) -> tuple[EntityNode | None, int]:
+        candidate = clean_triplet_entity(name)
+        if not candidate:
+            return None, next_id
+        matched = match_entity(candidate, local_entities) or match_entity(
+            candidate,
+            all_entities,
+        )
+        if matched is not None:
+            add_sentence_id(matched, sentence_id)
+            if matched not in local_entities:
+                local_entities.append(matched)
+            return matched, next_id
+        if not self.augment_entities:
+            return None, next_id
+
+        entity = EntityNode(
+            entity_id=f"E{next_id:03d}",
+            name=candidate,
+            entity_type=normalize_model_entity_type(entity_type),
+            aliases=[],
+            mentions=[
+                {
+                    "text": candidate,
+                    "label": normalize_model_entity_type(entity_type),
+                    "sentence_id": sentence_id,
+                    "confidence": DEFAULT_MODEL_CONFIDENCE,
+                    "source": "relation_model",
+                }
+            ],
+            attributes={
+                "mention_count": 1,
+                "sentence_ids": [sentence_id],
+                "source": "relation_model",
+            },
+            description="Generated from relation extraction triplet.",
+            confidence=DEFAULT_MODEL_CONFIDENCE,
+        )
+        all_entities.append(entity)
+        local_entities.append(entity)
+        self.generated_entity_count += 1
+        return entity, next_id + 1
 
     def _parse_triplets(self, generated_text: str) -> list[ExtractedTriplet]:
         triplets = parse_rebel_triplets(generated_text)
@@ -386,6 +476,8 @@ def parse_mrebel_triplets(text: str) -> list[ExtractedTriplet]:
     relation = ""
     subject = ""
     object_ = ""
+    subject_type = None
+    object_type = None
     current = ""
     cleaned = strip_generation_markers(text)
 
@@ -397,17 +489,23 @@ def parse_mrebel_triplets(text: str) -> list[ExtractedTriplet]:
                         head=subject.strip(),
                         relation=relation.strip(),
                         tail=object_.strip(),
+                        head_type=subject_type,
+                        tail_type=object_type,
                     )
                 )
             current = "subject"
             subject = ""
             relation = ""
             object_ = ""
+            subject_type = None
+            object_type = None
         elif is_angle_token(token):
             if current in {"subject", "relation"}:
+                subject_type = normalize_angle_token(token)
                 current = "object"
                 object_ = ""
             elif current == "object":
+                object_type = normalize_angle_token(token)
                 current = "relation"
                 relation = ""
         elif current == "subject":
@@ -423,6 +521,8 @@ def parse_mrebel_triplets(text: str) -> list[ExtractedTriplet]:
                 head=subject.strip(),
                 relation=relation.strip(),
                 tail=object_.strip(),
+                head_type=subject_type,
+                tail_type=object_type,
             )
         )
     return triplets
@@ -508,6 +608,39 @@ def build_sentence_entity_index(
     return index
 
 
+def iter_relation_contexts(
+    sentences: list[str],
+    context_window: int,
+) -> Iterable[tuple[int, str]]:
+    seen: set[tuple[int, str]] = set()
+    max_window = max(1, context_window)
+    for start in range(len(sentences)):
+        for window in range(1, max_window + 1):
+            end = start + window
+            if end > len(sentences):
+                continue
+            evidence = " ".join(sentence.strip() for sentence in sentences[start:end])
+            key = (start, evidence)
+            if evidence and key not in seen:
+                seen.add(key)
+                yield start, evidence
+
+
+def next_entity_number(entities: list[EntityNode]) -> int:
+    max_number = 0
+    for entity in entities:
+        match = re.fullmatch(r"E(\d+)", entity.entity_id)
+        if match:
+            max_number = max(max_number, int(match.group(1)))
+    return max_number + 1
+
+
+def add_sentence_id(entity: EntityNode, sentence_id: int) -> None:
+    sentence_ids = entity.attributes.setdefault("sentence_ids", [])
+    if sentence_id not in sentence_ids:
+        sentence_ids.append(sentence_id)
+
+
 def match_entity(candidate: str, entities: list[EntityNode]) -> EntityNode | None:
     normalized_candidate = normalize_entity_text(candidate)
     if not normalized_candidate:
@@ -523,6 +656,13 @@ def match_entity(candidate: str, entities: list[EntityNode]) -> EntityNode | Non
                 best_entity = entity
                 best_score = score
     return best_entity if best_score >= 0.72 else None
+
+
+def clean_triplet_entity(text: str) -> str:
+    cleaned = strip_generation_markers(text)
+    cleaned = re.sub(r"<[^>]+>", "", cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned)
+    return cleaned.strip(" \t\r\n'\"`.,;:!?()[]{}")
 
 
 def entity_match_score(candidate: str, variant: str) -> float:
@@ -551,6 +691,27 @@ def normalize_relation_name(relation: str) -> str:
         cleaned = re.sub(r"[^0-9A-Za-z_ -]+", "", cleaned)
         cleaned = re.sub(r"[\s-]+", "_", cleaned.strip().lower())
     return cleaned
+
+
+def normalize_model_entity_type(entity_type: str | None) -> str:
+    if not entity_type:
+        return "MODEL_ENTITY"
+    normalized = entity_type.strip("<> ").replace("-", "_").upper()
+    aliases = {
+        "PER": "PERSON",
+        "PERSON": "PERSON",
+        "HUMAN": "PERSON",
+        "ORG": "ORG",
+        "ORGANIZATION": "ORG",
+        "LOC": "LOC",
+        "LOCATION": "LOC",
+        "PLACE": "LOC",
+        "DATE": "TIME",
+        "TIME": "TIME",
+        "EVENT": "EVENT",
+        "PRODUCT": "PRODUCT",
+    }
+    return aliases.get(normalized, normalized or "MODEL_ENTITY")
 
 
 def extract_json_payload(text: str) -> str | None:
@@ -595,6 +756,10 @@ def strip_generation_markers(text: str) -> str:
         .replace("tp_XX", "")
     )
     return re.sub(r"__[\w-]+__", "", cleaned).strip()
+
+
+def normalize_angle_token(token: str) -> str:
+    return token.strip("<>").replace(" ", "_")
 
 
 def is_angle_token(token: str) -> bool:

@@ -38,6 +38,8 @@ class KnowledgeGraphPipeline:
         relation_min_confidence: float = 0.0,
         relation_source_lang: str | None = None,
         relation_decoder_start_token: str | None = None,
+        relation_augment_entities: bool = True,
+        relation_context_window: int = 1,
     ) -> None:
         self.resources = load_resource_config(
             config_dir=config_dir,
@@ -79,6 +81,8 @@ class KnowledgeGraphPipeline:
             min_confidence=relation_min_confidence,
             source_lang=relation_source_lang,
             decoder_start_token=relation_decoder_start_token,
+            augment_entities=relation_augment_entities,
+            context_window=relation_context_window,
         )
 
     def build_from_text(self, text: str) -> dict[str, Any]:

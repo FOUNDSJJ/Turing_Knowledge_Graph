@@ -92,6 +92,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional decoder start token for multilingual triplet models, e.g. tp_XX",
     )
     parser.add_argument(
+        "--no-relation-entity-augmentation",
+        action="store_true",
+        help=(
+            "Disable auxiliary entity creation from model-generated relation "
+            "triplets. By default this is enabled to improve relation recall."
+        ),
+    )
+    parser.add_argument(
+        "--relation-context-window",
+        type=int,
+        default=1,
+        help=(
+            "Number of adjacent sentences sent to the relation model together. "
+            "Use 2 or 3 to improve recall with more model calls."
+        ),
+    )
+    parser.add_argument(
         "--normalization-config",
         default=None,
         help="Override normalization JSON path",
@@ -122,6 +139,8 @@ def main() -> None:
         relation_min_confidence=args.relation_min_confidence,
         relation_source_lang=args.relation_source_lang,
         relation_decoder_start_token=args.relation_decoder_start_token,
+        relation_augment_entities=not args.no_relation_entity_augmentation,
+        relation_context_window=args.relation_context_window,
     )
     graph = pipeline.build_from_file(args.input)
     output_path = Path(args.output)

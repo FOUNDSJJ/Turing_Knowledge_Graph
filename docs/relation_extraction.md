@@ -51,6 +51,55 @@ python main.py --input sample_text.txt --output output/kg_re.json --relation-ext
 
 处理中文文本时，可以把 `--relation-source-lang` 改为 `zh_CN`。
 
+## 常见问题
+
+### 输出没有关系
+
+先查看输出 JSON：
+
+```json
+"metadata": {
+  "pipeline": {
+    "relation_extraction": {
+      "transformer_ready": false,
+      "transformer_error": "..."
+    }
+  }
+}
+```
+
+如果 `transformer_ready` 是 `false`，说明模型没有真正运行。常见原因：
+
+- 未安装 `transformers`、`torch` 或 `sentencepiece`。
+- PyTorch 在 Windows 上 DLL 加载失败。
+- 模型名称写错，或无法访问 Hugging Face 下载模型。
+
+可以先检查依赖：
+
+```bash
+python -c "import transformers, torch, sentencepiece; print(transformers.__version__, torch.__version__)"
+```
+
+如果 PyTorch 报 `c10.dll` 或 DLL 初始化失败，建议重新安装稳定 CPU 版 PyTorch，例如：
+
+```bash
+python -m pip install --force-reinstall torch==2.5.1 transformers>=4.40,<5 sentencepiece
+```
+
+### 语言参数不匹配
+
+`sample_text.txt` 是英文文本，应使用：
+
+```bash
+--relation-source-lang en_XX
+```
+
+中文文本再使用：
+
+```bash
+--relation-source-lang zh_CN
+```
+
 ## 和 Transformer NER 一起使用
 
 关系抽取依赖实体节点。为了减少规则实体识别带来的限制，可以同时启用预训练 NER：
